@@ -1,9 +1,10 @@
-import datetime
 import socket
 sender = "client "
 status = "INFO"
 info = "test message"
+e = False
 def start_server():
+    print("Starting Server...")
     # Create a socket object
     s = socket.socket()
 
@@ -15,26 +16,43 @@ def start_server():
 
     # Bind to the port
     s.bind(('', port))
+    print("Binding to Port " + str(port) + "...")
 
     # Put the socket into listening mode
     s.listen(5)
-    print("Server is listening")
-
+    print("Putting Socket into listening mode...")
+    print("Started Server")
+    
     while True:
         # Establish a connection with the client
         c, addr = s.accept()
-        print("Got connection from", addr)
+        
 
         # Receive data from the client
         data = c.recv(1024).decode('utf-8')
-        print("Received data:", data)
+        
 
         info, sender, USER = data.split(',')
-        
+        command_check(info)
+        if info.startswith('/') != True:
+            status = "CHAT"
+            message = "[" + sender + " " + status + "] " + USER + ":" + info
+            print(message)
+            status = "INFO"
 
 
         # Close the connection with the client
         c.close()
+def command_check(info):
+    if info.startswith('/'):
+        info = info.replace('/', '')
+    else:
+        return
+    if info == "stop":
+        print("stopping server...")
+        exit(132)
+        
+        
 
 
 
@@ -51,7 +69,6 @@ def start_server():
 
 
 
-x = datetime.datetime.now()
 
 
 
@@ -66,8 +83,8 @@ x = datetime.datetime.now()
 
 
 
-message = "[" + sender + status + "] " + info
-print(message)
+
+
 
 
 

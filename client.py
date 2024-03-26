@@ -19,8 +19,25 @@ def send_data(info, sender, USER):
     # Close the connection
     s.close()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
     while True:
         Input = input("chat: ")
         send_data(Input, 'Client', USER)
+
 

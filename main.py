@@ -1,9 +1,36 @@
 import socket
+import datetime as t
+
 sender = "client "
 status = "INFO"
 info = "test message"
 e = False
+
+
+
+def caesar_encrypt(plaintext, shift):
+    encrypted_text = ""
+    for char in plaintext:
+        if char.isalpha():
+            # Shift only alphabetical characters
+            shifted_char = chr(((ord(char.lower()) - ord('a') + shift) % 26) + ord('a'))
+            encrypted_text += shifted_char.upper() if char.isupper() else shifted_char
+        else:
+            # Keep non-alphabetical characters unchanged
+            encrypted_text += char
+    return encrypted_text
+
+def caesar_decrypt(ciphertext, shift):
+    return caesar_encrypt(ciphertext, -shift)
+
+# Example usage
+
+
+
+
+
 def start_server():
+    
     print("Starting Server...")
     # Create a socket object
     s = socket.socket()
@@ -29,8 +56,9 @@ def start_server():
         
 
         # Receive data from the client
-        data = c.recv(1024).decode('utf-8')
-        
+        crypteddata = c.recv(1024).decode('utf-8')
+        print(crypteddata)
+        data = caesar_decrypt(crypteddata,9)
 
         info, sender, USER = data.split(',')
         command_check(info)
@@ -51,7 +79,9 @@ def command_check(info):
     if info == "stop":
         print("stopping server...")
         exit(132)
-        
+    if info == "time":
+        time = t.time()
+        print(time)
         
 
 

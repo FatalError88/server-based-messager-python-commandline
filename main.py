@@ -82,32 +82,7 @@ def command_check(info):
     if info == "time":
         time = t.time()
         print(time)
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
 
 

@@ -7,6 +7,7 @@ USER = input("username:")
 
 
 def send_data(info, sender, USER):
+    
     # Create a socket object
     s = socket.socket()
 
@@ -23,6 +24,7 @@ def send_data(info, sender, USER):
 
     # Close the connection
     s.close()
+    
 
 
 
@@ -36,13 +38,16 @@ def send_data(info, sender, USER):
 
 
 
-
-
-
+socket.error("arg")
 
 if __name__ == "__main__":
     while True:
         Input = input("chat: ")
+        try:(
         send_data(Input, 'Client', USER)
-
+        )
+        except Exception as err:
+            print (err)
+            print("also called server does not exist or:server crashed OR:you have no internet")
+            exit()
 
